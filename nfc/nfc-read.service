@@ -1,0 +1,12 @@
+[Unit]
+Description=Monitor for NFC card detection
+After=multi-user.target
+
+[Service]
+User=pi
+Type=idle
+ExecStart=/home/pi/bin/nfc-read
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
