@@ -722,7 +722,8 @@ function admin_web_page()
 <html lang="en">
 <head>
 <meta charset="utf-8">	
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="180; URL=rml.php">
 	<title>RML membership</title>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen">
 </head>
