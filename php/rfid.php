@@ -45,6 +45,7 @@ else if ($action == "waiting")  {
     $timeout = 60;
     while ((!$card_id) && ($timeout))    {
         usleep (500000);    // half-sec delay
+        $timeout--;
         $result = $mysqli->query($sql);
         $row = $result->fetch_object();
         $card_id = $row->card_id;
@@ -54,14 +55,19 @@ else if ($action == "waiting")  {
         $display2 = "No card was detected.  Start again";
     } else  {
         // got a card number
-    $person_id = $_SESSION["person_id"];
-    $sql = "insert into rfid_card values ($card_id, $person_id)";
-    $mysqli->query($sql);
-    $display2 = "Card has been registered to you<br>\n";
-    $display2 .= thanks();
+        $person_id = $_SESSION["person_id"];
+        $sql = "insert into rfid_card values ($card_id, $person_id)";
+        $mysqli->query($sql);
+        if ($mysqli->affected_rows > 0)
+        {
+            $display2 = "Card has been registered to you<br>\n";
+            $display2 .= thanks();
+        } else {
+            $display2 = $mysqli->error;
+        }
     }
 }
 
 web_page();
 
-
+?>
