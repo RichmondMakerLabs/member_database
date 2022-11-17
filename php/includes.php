@@ -207,19 +207,21 @@ function report_form()  {
 function save_report()  {
     global $mysqli;
     $tool_name = $_SESSION["tool_name"];
-    $sql = "select tool_id from inventory where tool_name = '$tool_name'";
+    $sql = "select tool_id, fault_notify from inventory where tool_name = '$tool_name'";
     if ($result = $mysqli->query($sql)) {
         $row = $result->fetch_object();
         $tool_id = $row->tool_id;
         $_SESSION["tool_id"]= $tool_id;
+        $notify = $row->fault_notify;
+        $_SESSION["notify"] = $notify;
     }
     $report_by = $_SESSION["person_id"];
     $report_text = $_SESSION["text"];
     $sql = "insert into fault_record (tool_id, tool_name, report_by,report_date,report_text)
             values ($tool_id, '$tool_name', $report_by, curdate(), '$report_text')";
     $_SESSION["sql"] = $sql;         
-    $result = $mysqli->query($sql);
-    return $result;
+    $mysqli->query($sql);
+    return ($mysqli->affected_rows > 0)?1:0;
 }
 
 /* Used by fault_report, put up a form for text description of fix  */
@@ -267,6 +269,18 @@ function repair_summary()   {
     $tool_name = $_SESSION["tool_name"];
     $string = "Faulty $tool_name was reported clear on today's date";
     return $string;
+}
+
+/* Used by fault_report, sends details by email */
+function report_by_email()  {
+    $tool_name = $_SESSION["tool_name"];
+    $notify = $_SESSION["notify"];
+    $report_text = $_SESSION["text"];
+    $msg = "A fault report was made on today's date ";
+    $msg .= "about the $tool_name\n";
+    $msg .= $report_text;
+    $msg = wordwrap($msg, 70);
+    mail("$notify","RML Fault report",$msg);
 }
 
 /*****************************************

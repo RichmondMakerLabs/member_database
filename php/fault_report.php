@@ -47,11 +47,12 @@ if ($action == "report")    {
 else if ($action == "report_done")  {
     $_SESSION["text"] = validate($_POST["report_text"]);
     if (save_report()) {
-        $display2 = "success";
-    } else { $display2 = "failed";
+        $display2 = thanks();
+        report_by_email();
+    } else { 
+        $display2 = "There  was an error writing to the database.  Report not saved";
     }
     $display0 = names();
-    $display2 = thanks();
     $display = report_summary();
 }
 
