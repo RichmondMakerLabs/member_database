@@ -29,7 +29,8 @@ if (isset($_SESSION["person_id"]))  {
     $known_as = $_SESSION["known_as"];
     $person_id = $_SESSION["person_id"];
     
-    $sql = "insert into attendance values ($person_id, '$known_as', now(), now())";
+    $sql = "insert into attendance values ($person_id, '$known_as', 
+        now(), now()) on duplicate key update person_id = $person_id";
     $mysqli->query($sql);
     $display  = "<a href='rml.php'> Home </a>";
     $display2 = thanks();
