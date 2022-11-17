@@ -27,7 +27,7 @@ function names()
 }
 
 function jump_to($dest) {
-    echo "<script>window.location = '$location'</script>";
+    echo "<script>window.location = '$dest'</script>";
 }
 
 /* any line entered by user is processed to remove
