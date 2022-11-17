@@ -67,6 +67,13 @@ else if ($action == "add_admin")    {
         $display = plain_box(admin_form());    // requesting member id and a password
     }
 }
+else if ($action == "checkin")  {
+    // show a list of who has checked in today
+    $_SESSION["action"] = "checkin";
+    $display0 = "Checked in members - - - " . $display0;
+    $display = plain_box(checked_in_today());
+}
+
 else if ($action == "mlist")    {
     // simple list of registered members
     $_SESSION["action"] = "mlist";

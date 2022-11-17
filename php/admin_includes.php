@@ -36,6 +36,8 @@ function admin_menu()   {
     $string .= "<label for='password'>Change your password</label><br>\n";
     $string .= "<input type='radio' id='admin' name='action' value='add_admin'>\n";
     $string .= "<label for='admin'>Add another admin</label><br>\n";
+    $string .= "<input type='radio' id='checkin' name='action' value='checkin'>\n";
+    $string .= "<label for='checkin'>See who's checked in today</label><br>\n";
     $string .= "<input type='radio' id='mlist' name='action' value='mlist'>\n";
     $string .= "<label for='mlist'>Member list</label><br>\n";
     $string .= "<input type='radio' id='member' name='action' value='member'>\n";
@@ -153,6 +155,22 @@ function admin_save()    {
         }
     }
     $_SESSION["action"] = "adminmenu";
+    return $string;
+}
+
+    /*****************************************/
+    // show who has checked in so far today
+function checked_in_today() {
+    global $mysqli;
+    $sql = "select * from attendance where date = curdate() order by check_in asc";
+    $result = $mysqli->query($sql);
+    $string = "";
+    if ($result)  { 
+        while ($row = $result->fetch_object()) {
+            $name = $row->known_as;
+            $string .= "$name <br>\n";
+        }   // end while    
+    }       // end if
     return $string;
 }
 
