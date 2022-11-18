@@ -52,7 +52,7 @@ Data is passed as POST variables from html forms, and data is saved between stag
 
 To keep the indivdual PHP files readable, the data-entry stages use functions from an include file.  It is within the include file that the detail of the work is carried out.
 
-** Operation **
+**Operation**
 
 The home screen offers nine choices: Registration, Check-in, Inductions, Tool loan, Faulty equipment, Label for property, Tool inventory, Fortune cookie and Login as admin.
 
