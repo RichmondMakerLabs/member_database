@@ -162,7 +162,7 @@ function admin_save()    {
     // show who has checked in so far today
 function checked_in_today() {
     global $mysqli;
-    $sql = "select * from attendance where date = curdate() order by check_in asc";
+    $sql = "select * from attendance where day = curdate() order by check_in asc";
     $result = $mysqli->query($sql);
     $string = "";
     if ($result)  { 
