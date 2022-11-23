@@ -29,6 +29,10 @@ sudo systemctl restart apache2
 cd 	(takes you to your home directory)
 git clone https://github.com/RichmondMakerLabs/member_database
 cd ~/member_database/install/
+## make certain that bin/loadsql has execute permissions
+chmod +x ../bin/loadsql
+## edit bin/loadsql to contain the mysql password instead of the placeholder \<password\>
+## if the mysql user (line 20 above) is not rml, then edit bin/loadsql after the option -u
 ../bin/loadsql members.sql	(creates the tables and loads initial data)
 
 sudo mkdir /var/www/auth		(prepare a secure location for password)
@@ -38,9 +42,10 @@ sudo mv /var/www/html/rml.inc /var/www/auth/ (move the password file)
 sudo ln -s /var/www/html/rml.php /var/www/html/index.php
 sudo rm /var/www/html/index.html
 
+## Daily backup task saves the database tables and data
+~/member_database/bin/DBdump.sh
+
 ## If there's a database backup available, restore database 
 cd <database backups>
 ~/member_database/bin/loadsql <backup-filename.sql>
 
-## Daily backup task saves the database tables and data
-~/member_database/bin/DBdump.sh
