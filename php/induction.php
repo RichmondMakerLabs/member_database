@@ -39,13 +39,13 @@ if ($action ==  "save")  {
     if (isset($_POST["tool"]))  {
         $tool_id = $_POST["tool"];
         $sql = "insert into inductions (person_id, tool_id, induction_date)
-                values ($person_id, $tool_id, curdate())";
+                values ($person_id, $tool_id, curdate()) on duplicate key update person_id = $person_id";
         $result = $mysqli->query($sql);
-        if ($result)    {
+        if ($mysqli->affected_rows == 1)    {
             $headline = "Inductions: Updated";
             $display = regd_ind();
         } else {
-            // insert failed due to unique key constraint
+            // updated due to unique key constraint
             $display = "That induction has already been recorded";
             $display2 = regd_ind();
        }
