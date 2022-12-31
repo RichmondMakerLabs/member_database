@@ -36,7 +36,7 @@ function jump_to($dest) {
 function validate($input)   {
     global $mysqli;
     $mysqli->set_charset("utf8mb4");
-    if ($input) {    
+    if ($input) {
         $input = $mysqli->real_escape_string($input);
         $input = trim($input);
         $input = htmlspecialchars($input);
@@ -50,6 +50,47 @@ function thanks()   {
     $name = $_SESSION["first_name"];
     $string = "Thanks, $name!  :)";
     return $string;
+}
+
+/*****************************************
+    Include  - register-new.php functions
+*****************************************/
+/* Shows the data entry form */
+function register_form()  {
+  $string =<<<EOT
+  <form action="register-new.php" method="post" autocomplete="off">
+    <h2> Your name and identity </h2>
+        <label for="fname">First Name</label><br>
+        <input type="text" id="fname" name="first_name" placeholder="Your name" value="$_POST['first_name']"><br>
+
+        <label for="lname">Last Name</label><br>
+        <input type="text" id="lname" name="last_name" placeholder="Your last name" value="$_POST['last_name']"><br>
+
+        <label for="fname">Known as (could be first-name and first letter of last-name)</label><br>
+        <input type="text" id="known" name="known_as" placeholder="How will you be known?" value="$_POST['known_as']"><br>
+
+    <h2> In case we need to contact you </h2>
+    <p> (This personal information is protected under GPDR) </p>
+        <label for="addr">First Line of Address</label><br>
+        <input type="text" id="addr" name="address_1" placeholder="Address" value="$_POST['address_1']"><br>
+
+        <label for="pcode">Post Code</label><br>
+        <input type="text" id="pcode" name="post_code" placeholder="Post Code" value="$_POST['post_code']"><br>
+
+        <label for="phone">Phone number (mobile or landline)</label><br>
+        <input type="text" id="phone" name="phone" placeholder="Phone" value="$_POST['phone']"><br>
+
+        <label for="email">Email address</label><br>
+        <input type="text" id="email" name="email" placeholder="Email" value="$_POST['email']"><br>
+
+    <h2> That's all, now press 'Register' </h2>
+      <input type="submit" value="Register" >
+        <div class="rightmost">
+      <a href="rml.php"> Home </a>
+        </div>
+  </form>
+EOT;
+return $string;
 }
 
 /*****************************************
@@ -71,8 +112,8 @@ function regd_ind()
         $string = "Registered inductions<br>\n";
         while ($row = $result->fetch_object())  {
         $string .= "$row->tool_name   $row->induction_date <br>\n";
-        }        
-    }    
+        }
+    }
     return $string;
 }
 
@@ -84,14 +125,14 @@ function select_ind()
     $result = $mysqli->query($sql);
     $string = "Add an induction? ";
     $string .= "<div class='left-align-list'> <form action='induction.php' method='post'  autocomplete='off'>\n";
- 
+
     while ($row = $result->fetch_object())  {
         $tool_name= $row->tool_name;
         $tool_id  = $row->tool_id;
         $line = "<input type='radio' id='$tool_name' name='tool' value='$tool_id'>\n";
         $line .= "<label for='$tool_name'> $tool_name</label><br>\n";
         $string .= "$line <br>\n";
-    }      
+    }
     $string .= "<input type='submit' value='Add'></form></div>";
     return $string;
 }
@@ -100,16 +141,16 @@ function select_ind()
     Include  - fault_report.php functions
 *****************************************/
 
-/* Used by fault_report, puts up a form containing radio button list of 
+/* Used by fault_report, puts up a form containing radio button list of
 /* all tools or categories  */
 function select_tool()  {
     global $mysqli;
-    
+
     $string = "Identify which tool or category is affected \n";
     $string .= "<div class='left-align-list'><form action='fault_report.php' method='post'> \n";
     $sql = "select * from inventory where fault_report_list =1 and (date_removed is NULL or date_removed like '0000-00-00')
              order by tool_name asc";
-    $_SESSION["sql"] = $sql;         
+    $_SESSION["sql"] = $sql;
     $result = $mysqli->query($sql);
     while ($row = $result->fetch_object())  {
  //       $tool_id = $row->tool_id;
@@ -130,7 +171,7 @@ function select_fault() {
     $string = "Identify which reported fault you have cleared \n";
     $string .= "<div class='left-align-list'><form action='fault_report.php' method='post'> \n";
     $sql = "select * from fault_record where fix_date is null order by tool_id asc, report_date desc";
-    $_SESSION["sql"] = $sql;         
+    $_SESSION["sql"] = $sql;
     $result = $mysqli->query($sql);
     while ($row = $result->fetch_object())  {
 
@@ -171,7 +212,7 @@ function show_faults()  {
     } else {
         $string = "There are no faults to report";
     }
-    return $string;    
+    return $string;
 }
 
 
@@ -200,7 +241,7 @@ function report_form()  {
     $string .= "<input type='text' id='report' name='report_text' autofocus><br>\n";
     $string .= "<input type='submit' name='report' value='Done'>";
     $string .= "</form>";
-    return $string; 
+    return $string;
 }
 
 /* Used by fault_report, creates a new fault report record */
@@ -219,7 +260,7 @@ function save_report()  {
     $report_text = $_SESSION["text"];
     $sql = "insert into fault_record (tool_id, tool_name, report_by,report_date,report_text)
             values ($tool_id, '$tool_name', $report_by, curdate(), '$report_text')";
-    $_SESSION["sql"] = $sql;         
+    $_SESSION["sql"] = $sql;
     $mysqli->query($sql);
     return ($mysqli->affected_rows > 0)?1:0;
 }
@@ -250,10 +291,10 @@ function save_repair()  {
     $fix_by = $_SESSION["person_id"];
     $fix_text = $_SESSION["text"];
     $sql = "update fault_record set fix_by=$fix_by, fix_date=curdate(), fix_text='$fix_text' where fault_id = $fault_id";
-    $_SESSION["sql"] = $sql;         
+    $_SESSION["sql"] = $sql;
     $result = $mysqli->query($sql);
     return $result;
-} 
+}
 
 
 /*  Used by fault_report, creates a string confirming the report */
@@ -311,7 +352,7 @@ function loan_form()
     $string .= "<label for='tool'> What are you borrowing? </label><br><br>\n";
     $string .= "<input type='submit' value='Submit'> \n";
     $string .= "</form> \n";
-    return $string; 
+    return $string;
 }
 
 function save_loan()
@@ -323,14 +364,14 @@ function save_loan()
        // check whether the wording is a duplicate
         $tool_basename = $tool_name;
         $i = 2;
-        $sql = "select tool_name from loan_record 
+        $sql = "select tool_name from loan_record
             where person_id = $person_id and tool_name like '$tool_name'";
         $result = $mysqli->query($sql);
         // if tool_name was found, modify it with a trailing numeral
         while ($result->num_rows)  {
             $tool_name = $tool_basename . $i;
             $i++;
-            $sql = "select tool_name from loan_record 
+            $sql = "select tool_name from loan_record
                 where person_id = $person_id and tool_name like '$tool_name'";
             $_SESSION["sql"] = $sql;
             $result = $mysqli->query($sql);
@@ -349,7 +390,7 @@ function save_loan()
     } else {    // tool_name less than 3 characters
         $string = "Error: The description was too short. <br>";
         $string .= "Try again. <a href='rml.php'> Home </a>";
-    }   
+    }
     return $string;
 }
 
@@ -405,7 +446,7 @@ function save_return()
     } else {
         $string = "Error: The return could not be recorded. <br>";
         $string .= "Please write it in the book.";
-    }   
+    }
     return $string;
 
 }
@@ -413,9 +454,9 @@ function save_return()
 function show_all()
 {
     global $mysqli;
-    $sql = "select p.known_as, r.tool_name, r.date_out 
-        from loan_record r, person p 
-        where p.person_id = r.person_id 
+    $sql = "select p.known_as, r.tool_name, r.date_out
+        from loan_record r, person p
+        where p.person_id = r.person_id
         and r.date_return is NULL
         order by tool_name asc";
     $result = $mysqli->query($sql);
@@ -479,7 +520,7 @@ global $display0, $display, $display2;
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">	
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="refresh" content="90; URL=rml.php">
 	<title>RML membership</title>
@@ -494,11 +535,11 @@ global $display0, $display, $display2;
     <div class=plain-box><?=$display?></div>
     <br/>
     <div class=white-box><?=$display2?></div>
-  
+
     <div class = leftmost>
         <a href="rml.php"> Home </a>
     </div>
-</div> 
+</div>
 <?php
 /*
 echo "<br clear=all>";
@@ -509,9 +550,8 @@ echo "Post ";
 print_r ($_POST);
 echo "<br/>";
 */
-?> 
+?>
 </body>
 <?php
 }   // end function web_page
 ?>
-
