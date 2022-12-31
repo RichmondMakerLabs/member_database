@@ -19,7 +19,7 @@ echo "<br/>";
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">	
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>RML membership</title>
 <link href="style.css" rel="stylesheet" type="text/css">
@@ -29,9 +29,9 @@ echo "<br/>";
 <div class="grid-container">
 
     <div class="grid-item">
-        <a href="addmember.html">
+        <a href="register-new.php">
         <h2>New member registration</h2>
-        Record your contact details here 
+        Record your contact details here
         </a></div>
         
     <div class="grid-item">
@@ -57,7 +57,7 @@ echo "<br/>";
         Start the process to get anything fixed
         </a></div>
     <div class="grid-item">
-        <a href="label.php">    
+        <a href="label.php">
         <h2>Work in progress label</h2>
         Print a label to identify your own property left here
         </a></div>
@@ -75,8 +75,7 @@ echo "<br/>";
         <a href="fortune.php">
         <h2>Fortune cookie</h2>
         Don't mess with this
-        </a></div>        
+        </a></div>
 </div>
 </div>
 </body>
-

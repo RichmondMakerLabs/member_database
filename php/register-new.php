@@ -31,32 +31,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")       // i.e. if called with some para
     if (($address_1) && ($post_code)) { ++$contact; }
     if ($email) { ++$contact; }
     if ($phone) { ++ $contact; }
-    if (($known_as) && ($first_name) && ($last_name) && ($contact >1))   {
-      // check if $known_as exists in person table.
-      // If so, request a variation and check it's not a duplicate registration
+    if !(($known_as) && ($first_name) && ($last_name) && ($contact >1))   {
+        // Test failed
+        $display0 = $display2 = " Something's missing. <br>We need first & last names and at least two contact details <br>";
+        $display = register_form();
 
-
-      // Record the entry when check is passed
+    } else {
+        // Test OK
+        // check if $known_as exists in person table.
+        // If so, request a variation and check it's not a duplicate registration
+      $sql = "select known_as, first_name, last_name from person where known_as = $known_as";
+      $result = $mysqli->query($sql);
+      if ($result->num_rows)  {
+        // This identity exists. Either it must be changed, or someone is registering twice
+        $row = $result->fetch_object();
+        $found_first_name = $row->first_name;
+        $found_last_name = $row->last_name;
+        $display0 = $display2 = "The identity $known_as exists.  Used by $found_first_name $found_last_name.  <br>If that is you, you are already registered. <br>Otherwise, please change it to something that's unique to you.";
+        $display = register_form();
+      }
+      else {
+        // '$known_as' is unique and safe to write to database
         $sql = "insert into person
             (known_as, first_name,last_name,address_1,post_code,email,phone,registered,cancelled)
             values ('$known_as','$first_name','$last_name','$address_1','$post_code','$email','$phone', curdate(), NULL)";
         $result = $mysqli->query($sql);
         if (!$result) {
-          // needs better error handling here
-            $display2 = " Caught error " . $mysqli->error . "<br>\n";
-            $display = register_form();
+          // just in case something went wrong
+            $display0 = $display2 = " Caught error " . $mysqli->error . "<br>\n";
+            $display = "Registering failed, try again later, <a href='rml.php'>click here</a> to return to the front page";
         } else {
+          // All good, new registration recorded
             $display0 = "$known_as ... $first_name $last_name";
             $display = "That went well, <a href='rml.php'>click here</a> to return to the front page";
         }
-    } else {
-        $display2 = " Something's missing. <br>We need first & last names and at least two contact details <br>";
-        $display = register_form();
-     }
-}
-else  {     // set up a blank data entry form
+      }   // end of writing to database
+    }   // end of testing that we have enough data
+}   // end of handling form with some entries in it
+else  {
+  // set up a blank data entry form
   $display = register_form();
 }
-
 web_page();
 ?>
