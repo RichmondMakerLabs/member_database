@@ -5,6 +5,6 @@ FILE=membersdbdump${WHEN}.sql
 SERVER=localhost
 DB=members
 NAME=rml
-PASS=<password>
+PASS=abc123
 /usr/bin/mariadb-dump -h $SERVER -u $NAME --password=$PASS $DB > $FILE
 

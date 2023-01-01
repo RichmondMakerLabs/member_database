@@ -1,1 +1,1 @@
-mysql -A -B --skip-column-names --host localhost -Dmembers -urml -p<password> <$1
+mysql -A -B --skip-column-names --host localhost -Dmembers -urml -pabc123 <$1
