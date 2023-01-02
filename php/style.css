@@ -1,0 +1,371 @@
+body {
+	color: black;
+	margin: 0;
+	padding: 16px;
+	min-width: 320px;
+	font-size: 12px;
+	font-family:verdana, arial, sans-serif;
+}
+
+* {box-sizing: border-box}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%; 
+  font-size: 16px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #eee;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #eee;
+  outline: none;
+}
+
+
+.left-align-list   {
+  text-align:left;
+  padding-left: 4px
+}
+
+input[type=submit]  {
+    font-size: 18px;
+}
+
+.center_table   {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+  padding-top: 5px;
+  padding-bottom: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+}
+
+td  {
+    font-weight: normal;
+}
+
+h1      {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #f1f1f1;
+  color: white;
+  font-size: 18pt;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%; 
+  width: 650px;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+.rightmost {
+    float: right;
+    font-size: 16pt;
+    margin: 8px 0;
+}
+.leftmost   {
+    float: left;
+    font-size: 16pt;
+    margin: 8px 0;
+}
+
+.leftcheck   {
+    float: left;
+    margin: auto;
+}
+.spacer {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+ a:visited {
+    color: blue;
+    }
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;  // on the left
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.grid-item     {
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+ //   text-decoration: none;
+    outline: none;
+ //   color: #fef;
+ //   background-color: #4CAF50;
+    background-color: #dde;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px 9px 0 #999;
+}
+.grid-item-white     {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+ //   text-decoration: none;
+    outline: none;
+    color: #333;
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+ //   box-shadow: 0 9px 9px 0 #999;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
+    padding: 10px;
+    background-color: silver;
+}
+.grid-container-white {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 5px;
+    padding: 10px;
+    background-color: white;
+}
+
+
+/* CSS for Check-In push buttons
+*/
+  .pushable {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+  }
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+      to left,
+      hsl(240deg 100% 8%) 0%,
+      hsl(240deg 100% 16%) 8%,
+      hsl(240deg 100% 16) 92%,
+      hsl(240deg 100% 8%) 100%
+    );
+}
+front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: white;
+    background: hsl(240deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+}
+button  a {
+    text-decoration: none;
+    text-decoration-line: none;
+}
+    .red_front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+    .green_front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: black;
+    background: hsl(120deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .pushable:hover {
+    filter: brightness(110%);
+  }
+  .pushable:hover .green_front,  .pushable:hover .red_front,   .pushable:hover .front  {
+    transform: translateY(-6px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .green_front ,   .pushable:active .red_front{
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+  .pushable:hover .shadow {
+    transform: translateY(4px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+  .pushable:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+  }
+
+  .plain-box    {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #000;
+    background-color: silver;
+    border: 10px;
+    border-radius: 15px;
+  }
+ 
+  .white-box    {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #000;
+    background-color: #fff;
+    border: 2px solid black;
+    border-radius: 15px;
+  }
+
+@media screen and (min-width: 485px)   {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 10px;
+        padding: 10px;
+        background-color: silver;
+    }
+
+    .grid-container-white {
+        display: grid;
+        grid-template-columns: 300px 350px;
+        gap: none;
+        padding: 10px;
+        background-color: white;
+    }
+    .container  {
+        padding: 16px;
+        width: 768px;
+        margin-left: auto;
+        margin-right: auto;    
+    }
+    .left-align-list   {
+        text-align:left;
+        padding-left: 100px
+}
+}
+
+@media print    {
+    .container  {
+        padding: 0;
+        width: 100%;
+    }
+    .white-box, div.leftmost  {
+        display: none !important;
+    }
+    .plain-box  {
+        display: block;
+        background: white;
+        text-align: center;
+    }
+}
+
+
+ 
