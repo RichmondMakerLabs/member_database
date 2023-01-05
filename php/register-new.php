@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors',1);
+error_reporting(E_ALL & ~E_NOTICE);
 $SECUREDIR = "/var/www/auth";	// secure information
 include "$SECUREDIR/rml.inc";   // passwords
 include "includes.php";         // functions
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")       // i.e. if called with some para
     if (($address_1) && ($post_code)) { ++$contact; }
     if ($email) { ++$contact; }
     if ($phone) { ++ $contact; }
-    if !(($known_as) && ($first_name) && ($last_name) && ($contact >1))   {
+    if (!(($known_as) && ($first_name) && ($last_name) && ($contact >1)))   {
         // Test failed
         $display0 = $display2 = " Something's missing. <br>We need first & last names and at least two contact details <br>";
         $display = register_form();
@@ -40,9 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")       // i.e. if called with some para
         // Test OK
         // check if $known_as exists in person table.
         // If so, request a variation and check it's not a duplicate registration
-      $sql = "select known_as, first_name, last_name from person where known_as = $known_as";
+      $sql = "select known_as, first_name, last_name from person where known_as = '$known_as'";
       $result = $mysqli->query($sql);
-      if ($result->num_rows)  {
+     $row_count = $result->num_rows;
+      if ($row_count)  {
         // This identity exists. Either it must be changed, or someone is registering twice
         $row = $result->fetch_object();
         $found_first_name = $row->first_name;

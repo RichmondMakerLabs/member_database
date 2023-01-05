@@ -61,27 +61,27 @@ function register_form()  {
   <form action="register-new.php" method="post" autocomplete="off">
     <h2> Your name and identity </h2>
         <label for="fname">First Name</label><br>
-        <input type="text" id="fname" name="first_name" placeholder="Your name" value="$_POST['first_name']"><br>
+	<input type="text" id="fname" name="first_name" placeholder="Your name"  value="$_POST[first_name]"><br>
 
         <label for="lname">Last Name</label><br>
-        <input type="text" id="lname" name="last_name" placeholder="Your last name" value="$_POST['last_name']"><br>
+        <input type="text" id="lname" name="last_name" placeholder="Your last name" value="$_POST[last_name]"><br>
 
         <label for="fname">Known as (could be first-name and first letter of last-name)</label><br>
-        <input type="text" id="known" name="known_as" placeholder="How will you be known?" value="$_POST['known_as']"><br>
+        <input type="text" id="known" name="known_as" placeholder="How will you be known?" value="$_POST[known_as]"><br>
 
     <h2> In case we need to contact you </h2>
     <p> (This personal information is protected under GPDR) </p>
         <label for="addr">First Line of Address</label><br>
-        <input type="text" id="addr" name="address_1" placeholder="Address" value="$_POST['address_1']"><br>
+        <input type="text" id="addr" name="address_1" placeholder="Address" value="$_POST[address_1]"><br>
 
         <label for="pcode">Post Code</label><br>
-        <input type="text" id="pcode" name="post_code" placeholder="Post Code" value="$_POST['post_code']"><br>
+        <input type="text" id="pcode" name="post_code" placeholder="Post Code" value="$_POST[post_code]"><br>
 
         <label for="phone">Phone number (mobile or landline)</label><br>
-        <input type="text" id="phone" name="phone" placeholder="Phone" value="$_POST['phone']"><br>
+        <input type="text" id="phone" name="phone" placeholder="Phone" value="$_POST[phone]"><br>
 
         <label for="email">Email address</label><br>
-        <input type="text" id="email" name="email" placeholder="Email" value="$_POST['email']"><br>
+        <input type="text" id="email" name="email" placeholder="Email" value="$_POST[email]"><br>
 
     <h2> That's all, now press 'Register' </h2>
       <input type="submit" value="Register" >
