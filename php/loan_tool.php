@@ -48,7 +48,7 @@ else if ($action == "discharge")    {
     }
     $display = save_return();
     $display0 = names();
-    $display2 = $tool_name;
+    $display2 = $_SESSION["tool_name"];
 }
 
 // otherwise, initial page
