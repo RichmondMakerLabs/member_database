@@ -56,7 +56,7 @@ if ($result)    {
             echo "Cannot write to file ($logfile)";
             exit;
         }
-        fclose ($logfile);
+        fclose ($log);
         do_email();
     }   // end if items
     else if (isset($argv[1]))    {
