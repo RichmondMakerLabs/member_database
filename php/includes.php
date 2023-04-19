@@ -317,8 +317,9 @@ function report_by_email()  {
     $tool_name = $_SESSION["tool_name"];
     $notify = $_SESSION["notify"];
     $report_text = $_SESSION["text"];
-    $msg = "A fault report was made on today's date ";
-    $msg .= "about the $tool_name\n";
+    $person = $_SESSION["known_as"];
+    $msg = "$person made a fault report on today's date ";
+    $msg .= "about the $tool_name\n\n";
     $msg .= $report_text;
     $msg = wordwrap($msg, 70);
     mail("$notify","RML Fault report",$msg);
