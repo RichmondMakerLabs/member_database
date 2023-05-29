@@ -54,18 +54,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")       // i.e. if called with some para
       }
       else {
         // '$known_as' is unique and safe to write to database
-        $sql = "insert into person
-            (known_as, first_name,last_name,address_1,post_code,email,phone,registered,cancelled)
-            values ('$known_as','$first_name','$last_name','$address_1','$post_code','$email','$phone', curdate(), NULL)";
-        $result = $mysqli->query($sql);
-        if (!$result) {
-          // just in case something went wrong
-            $display0 = $display2 = " Caught error " . $mysqli->error . "<br>\n";
-            $display = "Registering failed, try again later, <a href='rml.php'>click here</a> to return to the front page";
-        } else {
+        // writing to multiple tables, so use TRANSACTION
+        $mysqli->begin_transaction();
+        try {
+            $sql = "insert into person
+                (known_as, first_name,last_name,address_1,post_code,email,phone,registered,cancelled)
+                values ('$known_as','$first_name','$last_name','$address_1','$post_code','$email','$phone', curdate(), NULL)";
+            $mysqli->query($sql);
+            $person_id = $mysqli->insert_id;
+            $sql = "insert into person_detail (person_id, from_signup) values ($person_id, 1)";
+            $mysqli->query($sql);
+            $sql = "insert into attendance values ($person_id, '$known_as', now(), now())";
+            $mysqli->query($sql);
+            $mysqli->commit();
           // All good, new registration recorded
             $display0 = "$known_as ... $first_name $last_name";
             $display = "That went well, <a href='rml.php'>click here</a> to return to the front page";
+        } catch (mysqli_sql_exception $exception) {
+            $mysqli->rollback();
+            throw $exception;
+            $display0 = $display2 = " Caught error " . $mysqli->error . "<br>\n";
+            $display = "Registering failed, try again later, <a href='rml.php'>click here</a> to return to the front page";
         }
       }   // end of writing to database
     }   // end of testing that we have enough data

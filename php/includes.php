@@ -66,11 +66,11 @@ function register_form()  {
         <label for="lname">Last Name</label><br>
         <input type="text" id="lname" name="last_name" placeholder="Your last name" value="$_POST[last_name]"><br>
 
-        <label for="fname">Known as (could be first-name and first letter of last-name)</label><br>
+        <label for="fname">Unique ID, known-as (could be first-name and first letter of last-name)</label><br>
         <input type="text" id="known" name="known_as" placeholder="How will you be known?" value="$_POST[known_as]"><br>
 
     <h2> In case we need to contact you </h2>
-    <p> (This personal information is protected under GPDR) </p>
+    <p> (This personal information is protected by UK GPDR) </p>
         <label for="addr">First Line of Address</label><br>
         <input type="text" id="addr" name="address_1" placeholder="Address" value="$_POST[address_1]"><br>
 
