@@ -19,7 +19,39 @@ create table person (
 )
     auto_increment = 314159;
 
+drop table if exists person_detail;
+create table person_detail (
+    person_id       int not null,   -- foreign key
+    from_signup     tinyint default 0,
+    from_maillist   tinyint default 0,
+    from_social     tinyint default 0,
+    from_other      tinyint default 0,
+    notes           text,           -- up to 16k chars per record
+    mugshot         mediumblob    ); -- up to 16Mbytes per record
+    
+drop table if exists person_detail;
+create table person_detail (
+    person_id       int not null,   -- foreign key
+    from_signup     tinyint default 0,
+    from_maillist   tinyint default 0,
+    from_social     tinyint default 0,
+    from_other      tinyint default 0,
+    notes           text,           -- up to 16k chars per record
+    mugshot         mediumblob    ); -- up to 16Mbytes per record
+    
+drop table if exists subs_recv;
+create table subs_recv    (
+    person_id       int not null,
+    amount_recv     float(6,2),
+    date_recv       date    );      -- format YYYY-MM-DD
+    
+drop table if exists subs_due;
+create table subs_due     (
+    person_id       int not null,
+    amount_due      float(6,2),
+    date_due        date    );      -- format YYYY-MM-DD
 
+ 
 drop table if exists keyholder;
 create table keyholder  (
     person_id   int not null,
