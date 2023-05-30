@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors',1);
 error_reporting(E_ALL & ~E_NOTICE);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $SECUREDIR = "/var/www/auth";	// secure information
 include "$SECUREDIR/rml.inc";   // passwords
 include "includes.php";         // functions
@@ -66,18 +67,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")       // i.e. if called with some para
             $mysqli->query($sql);
             $sql = "insert into attendance values ($person_id, '$known_as', now(), now())";
             $mysqli->query($sql);
+
             $mysqli->commit();
-          // All good, new registration recorded
+            // All good, new registration recorded
             $display0 = "$known_as ... $first_name $last_name";
             $display = "That went well, <a href='rml.php'>click here</a> to return to the front page";
-        } catch (mysqli_sql_exception $exception) {
-            $mysqli->rollback();
-            throw $exception;
+        }   // end try          
+        catch (mysqli_sql_exception $exception) {
+
             $display0 = $display2 = " Caught error " . $mysqli->error . "<br>\n";
             $display = "Registering failed, try again later, <a href='rml.php'>click here</a> to return to the front page";
-        }
-      }   // end of writing to database
-    }   // end of testing that we have enough data
+            // undo the transaction
+            $mysqli->rollback();
+        }     // end catch
+      }   // end else 'known as' unique
+    }   // end else 'test OK'
 }   // end of handling form with some entries in it
 else  {
   // set up a blank data entry form
