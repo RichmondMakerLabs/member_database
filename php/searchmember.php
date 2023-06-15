@@ -36,23 +36,27 @@ if (isset($_SESSION["person_id"]))  {
     $display2 = thanks();
 
 } else if (isset($_POST['search']))    {
-   if (isset($_POST["name"]))  {
+	$specific = 0;
+    if (isset($_POST["name"]))  {
       $target = validate($_POST["name"]);
       $target = preg_replace('/\s+/','',$target); // close any embedded spaces
-   } else if (isset($_POST["known_as"]))    {
+    } else if (isset($_POST["known_as"]))    {
+		$specific = 1;
       $target = $_POST["known_as"];
-   } else {
+    } else {
         // no selection was made from multiple results matching the string
       $target = '';
-   }
+    }
       
       if (strlen($target) >2)    {
 
         $sql = "select person_id, first_name, last_name, known_as
             from person 
-            where known_as like '%$target%'
-            or first_name like '%$target%'
-            or last_name like '%$target%'";
+            where known_as like '%$target%'";
+		if ($specific == 0)		{
+			$sql .= " or first_name like '%$target%'
+					  or last_name like '%$target%'";
+		}
         $result = $mysqli->query($sql);
         /* here we get, 0, several, or 1 result.
             Different handling for each possibility */
