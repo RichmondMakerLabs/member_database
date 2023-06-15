@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors',1);
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL ^ E_WARNING); // suppress warnings about unprepared array
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $SECUREDIR = "/var/www/auth";	// secure information
 include "$SECUREDIR/rml.inc";   // passwords
