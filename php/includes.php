@@ -523,7 +523,7 @@ global $display0, $display, $display2;
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="refresh" content="90; URL=rml.php">
+<meta http-equiv="refresh" content="240; URL=rml.php">
 	<title>RML membership</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
