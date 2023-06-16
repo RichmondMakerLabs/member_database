@@ -52,9 +52,10 @@ if (isset($_SESSION["person_id"]))  {
 
         $sql = "select person_id, first_name, last_name, known_as
             from person 
-            where known_as like '%$target%'";
+            where known_as like '$target'";
 		if ($specific == 0)		{
-			$sql .= " or first_name like '%$target%'
+			$sql .= " or known_as like '%$target%'
+					  or first_name like '%$target%'
 					  or last_name like '%$target%'";
 		}
         $result = $mysqli->query($sql);
