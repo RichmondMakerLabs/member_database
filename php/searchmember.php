@@ -95,8 +95,8 @@ if (isset($_SESSION["person_id"]))  {
             if ($result->num_rows)  {
                 $row = $result->fetch_object();
                 $days = $row->days;
-                if (days > 2)   {
-                    $display2 = "You have checked in $days times before";
+                if ($days > 2)   {
+                    $display2 = "You have checked in $days times";
                 }
             }
             $display = "Found:<br/>$known_as ... $first_name $last_name<br><br>";
