@@ -90,6 +90,15 @@ if (isset($_SESSION["person_id"]))  {
             $_SESSION["person_id"] = $person_id;
             $_SESSION["known_as"] = $known_as;
             $_SESSION["first_name"] = $first_name;
+            $sql = "select count(day) as days from attendance where person_id = $person_id";
+            $result = $mysqli->query($sql);
+            if ($result->num_rows)  {
+                $row = $result->fetch_object();
+                $days = $row->days;
+                if (days > 2)   {
+                    $display2 = "You have checked in $days times before";
+                }
+            }
             $display = "Found:<br/>$known_as ... $first_name $last_name<br><br>";
             $display .= "<button class='pushable'><span class='shadow'></span><span class='edge'></span>
                 <a href=searchmember.php><span class='green_front'>Check in</span></a></button>";
